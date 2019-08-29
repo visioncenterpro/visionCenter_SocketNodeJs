@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sockets Visión Center Pro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-8 mt-4">
+                <form class="" @submit.prevent="sendMessage()">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <div class="col input-group">
+                            <input class="form-control form-control-lg form-control-borderless"  :class="error" type="search"
+                                placeholder="Escribe tu mensaje" v-model="msgsend">
+                                <div class="invalid-feedback">
+                                    Debes escribir un mensaje.
+                                </div>
+                        </div>
+                        <div class="col-auto shadow">
+                            <button class="btn btn-lg btn-success" type="submit">Enviar mensaje</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4" v-if="message.length > 0">
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item active">Mesajes</li>
+                    <li class="list-group-item" v-for="(item, index) in message" :key="index">
+                        {{item}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //Servidos de sockets
+            //Servidor Backups2
+            //Usuario:root
+            //Contraseña: Yate2018
+        new Vue({
+            el: '#app',
+            data: {
+                socket: null,
+                message: [],
+                msgsend: '',
+                error:false
+            },
+            mounted() {
+                this.socket = io('http://192.168.0.196:3000/')
+                //Para escuchar eventos se utiliza el metodo on()
+                this.socket.on('chat message', (msg) => {
+                    this.message.push(msg.msg)
+                    console.log(msg)
+                });
+            },
+            methods: {
+                sendMessage() {
+                    if (this.msgsend != '') {
+                        //Para emitir eventos se utiliza el metodo emit()
+                        this.socket.emit('chat message', {
+                            msg: this.msgsend
+                        });
+                        this.msgsend = ''
+                        this.error = false
+                    } else {
+                        this.error = 'is-invalid mt-4'
+                        //alert('Debe escribir un mensaje.')
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
