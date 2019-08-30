@@ -80,6 +80,7 @@
                         this.socket.emit('chat message', {
                             msg: this.msgsend
                         });
+                        this.message.push(this.msgsend)
                         this.msgsend = ''
                         this.error = false
                     } else {

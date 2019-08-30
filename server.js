@@ -25,17 +25,13 @@ const server = app.listen(app.get('port'), ()=>{
 });
 
 const io = SocketIO.listen(server)
-
 // Web sockets
-
 io.on('connection', (socket)=>{
   console.log('Usuario conectado '+socket.id);
   socket.on('chat message', (e)=>{
     console.log(e);
-
-    io.emit('chat message', e);
+    //Emitir a todos los sockets conectado excepto al remitente
+    socket.broadcast.emit('chat message', e);
     
   })
-
-  // socket.emit('algo', socket)
 })
