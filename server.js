@@ -32,6 +32,8 @@ io.on('connection', (socket)=>{
     console.log(e);
     //Emitir a todos los sockets conectado excepto al remitente
     socket.broadcast.emit('chat message', e);
-    
+  
+    //Enviar mensaje sólo a usuario emisor //io.to(socket.id).emit('chat message', e);
+    // io.emit('chat message', e);//Emitir a todos los sockets conectados.
   })
 })
