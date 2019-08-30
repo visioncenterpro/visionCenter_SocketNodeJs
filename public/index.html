@@ -37,8 +37,8 @@
             </div>
         </div>
         <div class="row justify-content-center mt-4" >
-            <div class="col-md-4">
-                <img v-for="(item, index) in images" :key="index" :src="item" width="100px">
+            <div class="col-md-4" v-for="(item, index) in images">
+                <img :key="index" :src="item" width="100px">
             </div>
             <div class="col-md-4" v-if="message.length > 0">
                 <ul class="list-group">
