@@ -27,14 +27,12 @@ const server = app.listen(app.get('port'), ()=>{
 const io = SocketIO.listen(server)
 
 // Web sockets
-
 io.on('connection', (socket)=>{
   console.log('Usuario conectado '+socket.id);
   socket.on('chat message', (e)=>{
     console.log(e);
-
+    //Enviar mensaje sólo a usuario emisor //io.to(socket.id).emit('chat message', e);
     io.emit('chat message', e);
-    
   })
 
   // socket.emit('algo', socket)
