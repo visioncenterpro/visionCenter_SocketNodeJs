@@ -36,8 +36,11 @@
                 </form>
             </div>
         </div>
-        <div class="row justify-content-center mt-4" v-if="message.length > 0">
+        <div class="row justify-content-center mt-4" >
             <div class="col-md-4">
+                <img v-for="(item, index) in images" :key="index" :src="item" width="100px">
+            </div>
+            <div class="col-md-4" v-if="message.length > 0">
                 <ul class="list-group">
                     <li class="list-group-item active">Mesajes</li>
                     <li class="list-group-item" v-for="(item, index) in message" :key="index">
@@ -63,7 +66,8 @@
                 socket: null,
                 message: [],
                 msgsend: '',
-                error:false
+                error:false,
+                images:[]
             },
             mounted() {
                 this.socket = io()
@@ -72,6 +76,10 @@
                     this.message.push(msg.msg)
                     console.log(msg)
                 });
+
+                this.socket.on('new image', (data)=>{
+                    this.images.push(data.img)
+                })
             },
             methods: {
                 sendMessage() {

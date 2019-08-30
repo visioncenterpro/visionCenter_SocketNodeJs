@@ -36,4 +36,14 @@ io.on('connection', (socket)=>{
     //Enviar mensaje sólo a usuario emisor //io.to(socket.id).emit('chat message', e);
     // io.emit('chat message', e);//Emitir a todos los sockets conectados.
   })
+
+  socket.on('new finding', (msg)=>{
+    socket.broadcast.emit('chat message', msg);
+  })
+
+  socket.on('new image', (data)=>{
+    // console.log(data);
+    socket.broadcast.emit('new image', data)
+    
+  })
 })
