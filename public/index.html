@@ -52,7 +52,9 @@
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
     <script>
+           // const writeJsonFile = require('bit/global/write-json-file'); 
         //Servidos de sockets
             //Servidor Backups2
             //Usuario:root
@@ -63,7 +65,7 @@
                 socket: null,
                 message: [],
                 msgsend: '',
-                error:false
+                error:false,
             },
             mounted() {
                 this.socket = io()
@@ -72,6 +74,8 @@
                     this.message.push(msg.msg)
                     console.log(msg)
                 });
+
+                console.log(this.file)
             },
             methods: {
                 sendMessage() {
