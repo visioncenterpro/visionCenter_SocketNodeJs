@@ -55,15 +55,25 @@ const server = app.listen(app.get('port'), ()=>{
 });
 
 const io = SocketIO.listen(server)
-
 // Web sockets
 io.on('connection', (socket)=>{
   console.log('Usuario conectado '+socket.id);
   socket.on('chat message', (e)=>{
     console.log(e);
+    //Emitir a todos los sockets conectado excepto al remitente
+    socket.broadcast.emit('chat message', e);
+  
     //Enviar mensaje sólo a usuario emisor //io.to(socket.id).emit('chat message', e);
-    io.emit('chat message', e);
+    // io.emit('chat message', e);//Emitir a todos los sockets conectados.
   })
 
-  // socket.emit('algo', socket)
+  socket.on('new finding', (msg)=>{
+    socket.broadcast.emit('chat message', msg);
+  })
+
+  socket.on('new image', (data)=>{
+    // console.log(data);
+    socket.broadcast.emit('new image', data)
+    
+  })
 })
