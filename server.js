@@ -44,6 +44,11 @@ io.on('connection', (socket)=>{
   socket.on('new image', (data)=>{
     // console.log(data);
     socket.broadcast.emit('new image', data)
-    
+  })
+
+  socket.on('barcode:instalation', (data)=>{
+
+    console.log(data)
+    socket.broadcast.emit('barcode:instalation', data)
   })
 })

@@ -82,6 +82,22 @@
                 this.socket.on('new image', (data) => {
                     this.images.push(data.img)
                 })
+
+                this.socket.on('barcode:instalation', (data) => {
+                    // let text = data.text.split(',')
+                    // let json = {}
+                    // let d = [];
+                    // text.map((prop, index) => {
+                    //     d.push(prop.split(":"))
+                    // })
+                    // d.map((val, i) => {
+                    //     json[val[0]] = val[1]
+                    // })
+                    console.log(data)
+
+
+
+                })
             },
             methods: {
                 sendMessage() {
