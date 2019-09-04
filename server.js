@@ -81,4 +81,12 @@ io.on('connection', (socket)=>{
     console.log(data)
     socket.broadcast.emit('barcode:instalation', data)
   })
+
+  socket.on('data file', (data)=>{
+
+    console.log(data)
+    socket.broadcast.emit('data file', data)
+  })
+
+
 })

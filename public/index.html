@@ -45,8 +45,8 @@
             <div class="col-md-4" v-if="message.length > 0">
                 <ul class="list-group">
                     <li class="list-group-item active">Mesajes</li>
-                    <li class="list-group-item" v-for="(item, index) in message" :key="index">
-                        {{item}}
+                    <li class="list-group-item" v-for="(item, index) in message" :key="index" v-html="item">
+                        
                     </li>
                 </ul>
             </div>
@@ -71,7 +71,8 @@
                 message: [],
                 msgsend: '',
                 error:false,
-                images: []
+                images: [],
+                barcode:[]
             },
             mounted() {
                 this.socket = io()
@@ -81,25 +82,24 @@
                     console.log(msg)
                 });
 
+                this.socket.on('data file', (msg) => {
+                    // this.message.push(msg.msg)
+                    console.log(msg)
+                });
+
                 console.log(this.file)
                 this.socket.on('new image', (data) => {
                     this.images.push(data.img)
                 })
 
                 this.socket.on('barcode:instalation', (data) => {
-                    // let text = data.text.split(',')
-                    // let json = {}
-                    // let d = [];
-                    // text.map((prop, index) => {
-                    //     d.push(prop.split(":"))
-                    // })
-                    // d.map((val, i) => {
-                    //     json[val[0]] = val[1]
-                    // })
-                    console.log(data)
-
-
-
+                    this.message.push(`
+                    
+                        Se ha recibido un paquete en la obra: ${data.name_project} <br>
+                        Torre: ${data.tower} <br>
+                        Apartamento: ${data.apartment}
+                    `)
+                        
                 })
             },
             methods: {
