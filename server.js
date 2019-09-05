@@ -18,7 +18,7 @@ fs.readFile(nameFile, 'utf8', (error, datos) => {
 
 
 db.push({
-  "msg":"Hola Raga ss"
+  // "msg":"Hola Raga ss"
 })
 console.log(db);
 
@@ -54,10 +54,59 @@ const server = app.listen(app.get('port'), ()=>{
 
 });
 
+//Asterisk
+const ami = new require('asterisk-manager')('5038','192.168.0.88','vision','123', true);
+
+// En caso de problemas de conectividad, lo tenemos cubierto.
+ami.keepConnected()
+// console.log(`Conexión: ${ami.keepConnected()}`);
+ 
+// Escuche cualquier / todos los eventos de AMI.
+// ami.on('managerevent', function(evt) {
+//   console.log(evt)
+// });
+
+// Escuche eventos específicos de AMI. Puede encontrar una lista de nombres de eventos en
+// https://wiki.asterisk.org/wiki/display/AST/Asterisk+11+AMI+Events
+// ami.on('hangup', function(evt) {
+//   console.log(evt)
+
+// });
+ami.on('confbridgejoin', function(evt) {
+  console.log(evt)
+
+});
+ 
+// // Escuche las respuestas de acción.
+ami.on('response', function(evt) {
+  console.log(evt)
+
+});
+
+// Realizar una acción de AMI. Se puede encontrar una lista de acciones en
+ami.action({
+  'action':'originate',
+  'channel':'SIP/from-mundialvoip/573115992724',
+  'context':'from-internal',
+  'exten':'SIP/2301',
+  'priority':1,
+  'variable':{
+    'name1':'value1',
+    'name2':'value2'
+  }
+},(err, res)=>{
+  console.log(res);
+  console.log(err);
+});
+ 
+
+
+///// Eventos del socket
+
 const io = SocketIO.listen(server)
 // Web sockets
 io.on('connection', (socket)=>{
-  console.log('Usuario conectado '+socket.id);
+  // console.log('Usuario conectado '+socket.id);
   socket.on('chat message', (e)=>{
     console.log(e);
     //Emitir a todos los sockets conectado excepto al remitente
@@ -72,7 +121,7 @@ io.on('connection', (socket)=>{
   })
 
   socket.on('new image', (data)=>{
-    // console.log(data);
+    console.log(data);
     socket.broadcast.emit('new image', data)
   })
 

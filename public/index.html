@@ -46,7 +46,7 @@
                 <ul class="list-group">
                     <li class="list-group-item active">Mesajes</li>
                     <li class="list-group-item" v-for="(item, index) in message" :key="index" v-html="item">
-                        
+
                     </li>
                 </ul>
             </div>
@@ -57,9 +57,9 @@
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    
+
     <script>
-           // const writeJsonFile = require('bit/global/write-json-file'); 
+        // const writeJsonFile = require('bit/global/write-json-file'); 
         //Servidos de sockets
         //Servidor Backups2
         //Usuario:root
@@ -70,9 +70,9 @@
                 socket: null,
                 message: [],
                 msgsend: '',
-                error:false,
+                error: false,
                 images: [],
-                barcode:[]
+                barcode: []
             },
             mounted() {
                 this.socket = io()
@@ -90,16 +90,18 @@
                 console.log(this.file)
                 this.socket.on('new image', (data) => {
                     this.images.push(data.img)
+
                 })
 
                 this.socket.on('barcode:instalation', (data) => {
+                    console.log(this.convertToJson( data));
+                    datos = this.convertToJson( data)
                     this.message.push(`
-                    
-                        Se ha recibido un paquete en la obra: ${data.name_project} <br>
-                        Torre: ${data.tower} <br>
-                        Apartamento: ${data.apartment}
+                        Se ha recibido un paquete en la obra: ${datos.ProjectName} <br>
+                        Torre: ${datos.Tower} <br>
+                        Apartamento: ${datos.Apartment}
                     `)
-                        
+
                 })
             },
             methods: {
@@ -116,6 +118,20 @@
                         this.error = 'is-invalid mt-4'
                         //alert('Debe escribir un mensaje.')
                     }
+                },
+
+                convertToJson(qr) {
+                    let t = qr.text.split(';\n')
+                    let json = {}
+                    let d = [];
+                    t.map((prop, index) => {
+                        d.push(prop.split(":"))
+                    })
+                    d.map((val, i) => {
+                        json[val[0]] = val[1]
+                    })
+
+                    return json;
                 }
             },
         })
