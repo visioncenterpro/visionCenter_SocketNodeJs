@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const SocketIO = require('socket.io')
 const socket_mobile = require('./controllers/socket-event/socket-mobile')
+const asterisk = require('./controllers/asterisk/conexion')
 const route_web = require('./routes/web');
 var morgan = require('morgan')
 app.use( morgan())
@@ -26,6 +27,13 @@ const server = app.listen(app.get('port'), ()=>{
 
 //Rutas web
 route_web(app)
+
+///asterisk
+
+asterisk()
+
+
+
 
 
 ///// Eventos del socket
