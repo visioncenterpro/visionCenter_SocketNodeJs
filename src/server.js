@@ -30,7 +30,7 @@ route_web(app)
 
 ///asterisk
 
-asterisk()
+// asterisk()
 
 
 
