@@ -6,7 +6,7 @@ const socket_mobile = require('./controllers/socket-event/socket-mobile')
 const asterisk = require('./controllers/asterisk/conexion')
 const route_web = require('./routes/web');
 var morgan = require('morgan')
-app.use( morgan())
+// app.use( morgan())
 
 
 // Definimos el puerto en el objeto app 
