@@ -1,5 +1,5 @@
 module.exports = (app)=>{
-    app.get('/camera', (req, res)=>{
-        res.render( 'camera')
-    })
+    app.get('/to_call', (req, res) => {
+         res.json({resp:'Llamando desde asterisk'});
+    });
 }
