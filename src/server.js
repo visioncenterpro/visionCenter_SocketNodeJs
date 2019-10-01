@@ -14,19 +14,19 @@ app.set('port', process.env.PORT || 3000)
 
 
 //archivos estáticos
-app.use(express.static(path.join( __dirname, '../public/')))
+app.use(express.static(path.join(__dirname, '../public/')))
 
 // VIstas
-app.set('views','/views');
+app.set('views', '/views');
 //Motor
 app.set('view engine', 'ejs');
 // Inicializar servidor
-const server = app.listen(app.get('port'), ()=>{
+const server = app.listen(app.get('port'), () => {
   // console.log(`Servidor corriendo en el puerto ${app.get('port')}`)
 });
 
 //Rutas web
-route_web(app)
+// route_web(app)
 
 ///asterisk
 
