@@ -32,7 +32,7 @@ module.exports = io => {
 
     socket.on("new_modification", data => {
       console.log(data);
-      socket.broadcast.emit("new_modification", data);
+      io.emit("new_modification", data);
     });
   });
 };
