@@ -75,7 +75,11 @@
                 barcode: []
             },
             mounted() {
+
+
+
                 this.socket = io()
+
                 //Para escuchar eventos se utiliza el metodo on()
                 this.socket.on('chat message', (msg) => {
                     this.message.push(msg.msg)
@@ -87,15 +91,14 @@
                     console.log(msg)
                 });
 
-                console.log(this.file)
                 this.socket.on('new image', (data) => {
                     this.images.push(data.img)
 
                 })
 
                 this.socket.on('barcode:instalation', (data) => {
-                    console.log(this.convertToJson( data));
-                    datos = this.convertToJson( data)
+                    console.log(this.convertToJson(data));
+                    datos = this.convertToJson(data)
                     this.message.push(`
                         Se ha recibido un paquete en la obra: ${datos.ProjectName} <br>
                         Torre: ${datos.Tower} <br>
