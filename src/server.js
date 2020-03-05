@@ -7,6 +7,7 @@ const SocketIO = require('socket.io')
 const socket_mobile = require('./controllers/socket-event/socket-mobile')
 const asterisk = require('./controllers/asterisk/conexion')
 const route_web = require('./routes/web');
+const bodyParser = require('body-parser');
 // var morgan = require('morgan')
 // app.use( morgan())
 
@@ -17,6 +18,11 @@ app.set('port', process.env.PORT || 3000)
 
 //archivos estáticos
 app.use(express.static(path.join(__dirname, '../public/')))
+
+//Body parser
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 // VIstas
 app.set('views', '/views');
@@ -48,8 +54,15 @@ const server = app.listen(app.get('port'), () => {
   });
 });
 
+///// Eventos del socket
+const io = SocketIO.listen(server)
+
+
+
+
+
 //Rutas web
-// route_web(app)
+route_web(app, io)
 
 
 
@@ -61,7 +74,5 @@ const server = app.listen(app.get('port'), () => {
 
 
 
-///// Eventos del socket
-const io = SocketIO.listen(server)
 // Estos procesos se delegaron a la ruta socket/socket-mobile.js
 socket_mobile(io)
