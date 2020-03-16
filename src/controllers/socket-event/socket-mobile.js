@@ -1,7 +1,7 @@
 module.exports = io => {
   // Web sockets
   io.on("connection", socket => {
-    // console.log('Usuario conectado '+socket.id);
+    console.log('Usuario conectado '+socket.id);
     socket.on("chat message", e => {
       console.log(e);
       //Emitir a todos los sockets conectado excepto al remitente
