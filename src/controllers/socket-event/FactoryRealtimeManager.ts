@@ -14,8 +14,6 @@ class FactoryRealtimeManager {
 
                 socket.on("chat message", e => {
 
-                  console.log("recibido desde la clase factory"+e);
-                  //Emitir a todos los sockets conectado excepto al remitente
                   socket.broadcast.emit("chat message", e);
             
                   //Enviar mensaje sólo a usuario emisor //io.to(socket.id).emit('chat message', e);
@@ -41,6 +39,12 @@ class FactoryRealtimeManager {
                 socket.on("refresh_management_process_stats", e => { 
                     socket.broadcast.emit("refresh_management_process_stats", e);
                 });
+
+                socket.on("visioncenter_event_general_refresh", e => { 
+                    socket.broadcast.emit("visioncenter_event_general_refresh", e);
+                    console.log('refresh');
+                });
+                
                 
 
             });
@@ -68,13 +72,13 @@ class FactoryRealtimeManager {
 
     processError(error) {
 
-        Swal.fire({
-            title: 'Algo no Anda Bien...',
-            html:  '<h4>'+error+'</h4>',
-            showCancelButton: false,
-            showConfirmButton: true,
-            confirmButtonText: 'Ok, Revisaré',
-        });
+        // Swal.fire({
+        //     title: 'Algo no Anda Bien...',
+        //     html:  '<h4>'+error+'</h4>',
+        //     showCancelButton: false,
+        //     showConfirmButton: true,
+        //     confirmButtonText: 'Ok, Revisaré',
+        // });
 
     }
 

@@ -1,14 +1,29 @@
+// {
+//     "compilerOptions": {
+//         "target": "es6",
+//         "strict": true,
+//         "moduleResolution": "node",
+//         "experimentalDecorators": true,
+//         "allowJs": true,
+//         "module": "System"
+//     },
+
+//     "include": [
+//         "src/*.ts"
+//     ]
+// }
 {
     "compilerOptions": {
-        "target": "es5",
-        "strict": true,
-        "module": "es2015",
-        "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "allowJs": true
+      "module":"ES2015",
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": true,   
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "allowJs": true,
+      "target": "ESNext" 
     },
+    "include": ["./src/*.js", "./src/**/*.ts", "src/schemas/BOMSchema.ts"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
 
-    "include": [
-        "src/*.ts"
-    ]
 }
