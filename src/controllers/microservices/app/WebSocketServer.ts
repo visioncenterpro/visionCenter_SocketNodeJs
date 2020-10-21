@@ -10,7 +10,7 @@ const FactoryRealtimeManagers = require('../../socket-event/FactoryRealtimeManag
 const BOMSchema = require('../schemas/BOMSchemas.ts');
 const BOMResolver = require('../resolvers/BOMResolvers.ts');
 
-class AppMain {
+class WebSocketsServer {
 
     constructor() {
   
@@ -61,4 +61,4 @@ class AppMain {
   
   }
 
-  module.exports = AppMain
+  module.exports = WebSocketsServer;

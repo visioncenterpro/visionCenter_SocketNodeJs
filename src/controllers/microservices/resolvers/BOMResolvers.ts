@@ -3,6 +3,12 @@ const Knex = require("knex");
 
 class BOMResolvers {
 
+    constructor() {
+
+   
+         
+    }
+    
     getResolver() {
 
         return {
@@ -11,7 +17,9 @@ class BOMResolvers {
 
                 async getProjects(root) {
 
-                    let rn = await Axios.get('http://192.168.39.176:8000/api/projects/getAllProjects?all=true'); 
+                    let rn = await Axios.post('http://192.168.39.176:8000/api/projects/getAllProjects', {
+                        all: true
+                    }); 
                     return rn.data.data;
 
                     // return Knex({ client: "mysql", connection: {
@@ -63,12 +71,6 @@ class BOMResolvers {
      
         }
 
-    }
-
-    constructor() {
-
-   
-         
     }
    
 }

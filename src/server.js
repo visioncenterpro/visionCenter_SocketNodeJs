@@ -2,13 +2,10 @@
 // const socket_approval = require('./controllers/socket-event/socket-approval')
 const asterisk = require('./controllers/asterisk/conexion')
 const route_web = require('./routes/web');
-const AppMains = require('./controllers/microservices/app/AppMain.ts');
+const WebSocketServer = require('./controllers/microservices/app/WebSocketServer.ts');
 
 
-new AppMains();
-
-
-
+new WebSocketServer();
 
 // Estos procesos se delegaron a la ruta socket/socket-mobile.js
 //socket_mobile(io);
