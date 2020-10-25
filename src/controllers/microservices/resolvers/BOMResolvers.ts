@@ -1,6 +1,3 @@
-const Axios = require("axios");
-const Knex = require("knex");
-
 class BOMResolvers {
 
     constructor() {

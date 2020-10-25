@@ -9,6 +9,10 @@ const SocketIO = require('socket.io')
 const FactoryRealtimeManagers = require('../../socket-event/FactoryRealtimeManager.ts');  
 const BOMSchema = require('../schemas/BOMSchemas.ts');
 const BOMResolver = require('../resolvers/BOMResolvers.ts');
+const AckComponentsSchema = require('../schemas/AckComponentsSchemas.ts');
+const AckComponentsResolver = require('../resolvers/AckComponentsResolvers.ts');
+const Axios = require("axios");
+const cors = require('cors');
 
 class WebSocketsServer {
 
@@ -18,6 +22,7 @@ class WebSocketsServer {
       app.use(express.static(path.join(__dirname, '../public/')));
       app.set('views', '/views');
       app.set('view engine', 'ejs');
+      app.use(cors());
       
       app.use('/getProductBOM', graphqlHTTP.graphqlHTTP({
         graphiql: true,
@@ -30,6 +35,17 @@ class WebSocketsServer {
       
       }));
        
+      app.use('/UpdateAckComponentsMS', graphqlHTTP.graphqlHTTP({
+        graphiql: true,
+        schema: makeExecutableSchema.makeExecutableSchema({
+            
+            typeDefs: new AckComponentsSchema().getSchema(), 
+            resolvers: new AckComponentsResolver().getResolver()
+      
+        })      
+      
+      }));
+
       const server = app.listen(app.get('port'), () => {
       
         Object.keys(ifaces).forEach(function (ifname) {
