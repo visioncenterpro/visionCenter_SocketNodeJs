@@ -1,6 +1,3 @@
-
-const Knex = require("knex");
-
 class AckComponentsResolvers {
 
     constructor() {
