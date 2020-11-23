@@ -9,12 +9,42 @@ class BOMSchemas {
         return `        
        
         type Query {
-            getBOM(name: String): String,
+            getAckComponentBOM(ackComponent: AckComponentBOM): [ackComponentBOMLMATItem],
             greet: Int,
             getget: [Project],
             getLogistics(id_visioncenter_logistics: Int): [Logistics],
             getProducts: [Product],
-            getDispatch(idDispatch: Int): DispatchItemList
+            getDispatch(idDispatch: Int): DispatchItemList,
+            getMaterials: [Materials],
+            getMaterialsStructures: [MaterialStructure]
+        }
+
+        type MaterialStructure {
+
+            id_materials_structure: ID,
+            fk_visioncenter_materials_materials_structure: ID,
+            name: String,
+            description: String,
+            orientation: String,
+            amplitude: Float,
+            height: Float,
+            shape: String,
+            qty_meter: Int,
+            caliber: Float
+            
+        }
+
+        type Materials {
+
+            id_visioncenter_materials: ID,
+            name: String,
+            transparency_percent: Int,
+            water_resistance_percent: Int,
+            acid_resistance_percent: Int,
+            temperature_sealed: Int,
+            ripped_resistance_percent: Int,
+            printing: String,
+            material_structure: [MaterialStructure]
         }
 
         type newOperatorMachine {
@@ -408,6 +438,90 @@ class BOMSchemas {
             qty: Int,
             route: ProductBOMLMATRouteItem,
             updated_at: String            
+
+        }
+
+        type Attributes {
+
+            id_products_attribute: ID,
+            fk_characteristics: ID,
+            fk_products_attributes_types: ID,
+            name: String,
+            description: String,
+            value: String,
+            created_at: String,
+            updated_at: String,            
+
+        }
+
+        type ackComponentBOMLMATItem {
+
+            code: String,
+            code_erp: String,
+            created_at: String,
+            description: String,
+            fk_products_groups: Int,
+            id_visioncenter_products: Int,
+            qty: Int,
+            route: ProductBOMLMATRouteItem,
+            updated_at: String,            
+            attributes: [Attributes]
+
+        }
+
+        input AckComponentBOM {
+            area: Float,
+            caliber: Float,
+            canto: Int,
+            component_code: String,
+            component_code_special: String,
+            component_description: String,
+            component_name: String,
+            deep: Int,
+            finished_right: Int,
+            fk_ack_ack_styles: Int,
+            fk_acknowledgement_comp: Int,
+            height: Int,
+            hinge_left: Int,
+            hinge_right: Int,
+            idx_component: Int,
+            mdf: String,
+            observation: String,
+            qty: Int,
+            rh: String,
+            ruteos: String,
+            slot_color: String,
+            style_name: String,
+            width: Int,
+            finished_left: Int            
+
+        }
+
+        type AckComponentBOMItem {
+            area: Float,
+            caliber: Float,
+            canto: Int,
+            component_code: String,
+            component_code_special: String,
+            component_description: String,
+            component_name: String,
+            deep: Int,
+            finished_right: Int,
+            fk_ack_ack_styles: Int,
+            fk_acknowledgement_comp: Int,
+            height: Int,
+            hinge_left: Int,
+            hinge_right: Int,
+            idx_component: Int,
+            mdf: String,
+            observation: String,
+            qty: Int,
+            rh: String,
+            ruteos: String,
+            slot_color: String,
+            style_name: String,
+            width: Int,
+            finished_left: Int,
 
         }
 
