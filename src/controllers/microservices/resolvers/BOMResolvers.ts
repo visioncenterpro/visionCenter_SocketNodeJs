@@ -60,12 +60,14 @@ class BOMResolvers {
 
                     });
 
+                    
+
                     return dispatchObject;
 
                 },
-                async getMaterialsStructures(root, material) {
+                async getMaterialsStructures(root, {material}) {
 
-                    let materials_structures = [];
+                    let materials_structure = [];
 
                     let knexConnection = await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
@@ -74,17 +76,22 @@ class BOMResolvers {
                         database : 'visioncenter'
                       } });
 
-                    await knexConnection.raw('SELECT visioncenter_materials_structure.id_materials_structure, fk_visioncenter_materials_materials_structure, visioncenter_materials_structure.name, visioncenter_materials_structure.description, visioncenter_materials_structure.orientation, visioncenter_materials_structure.amplitude, visioncenter_materials_structure.height, visioncenter_materials_structure.shape, visioncenter_materials_structure.qty_meter, visioncenter_materials_structure.caliber FROM visioncenter_materials_structure WHERE visioncenter_materials_structure.fk_visioncenter_materials_materials_structure = '+material.id_visioncenter_materials+' ORDER BY visioncenter_materials_structure.id_materials_structure').then(function(materials_structures) {
+                      await new Promise(async (resolve, reject) => {
+
+                        await knexConnection.raw('SELECT visioncenter_materials_structure.id_materials_structure, fk_visioncenter_materials_materials_structure, visioncenter_materials_structure.name, visioncenter_materials_structure.description, visioncenter_materials_structure.orientation, visioncenter_materials_structure.amplitude, visioncenter_materials_structure.height, visioncenter_materials_structure.shape, visioncenter_materials_structure.qty_meter, visioncenter_materials_structure.caliber FROM visioncenter_materials_structure WHERE visioncenter_materials_structure.fk_visioncenter_materials_materials_structure = '+material.id_visioncenter_materials+' ORDER BY visioncenter_materials_structure.id_materials_structure').then(async (materials_structures) => {
 
                             if(materials_structures[0].length > 0) {
 
-                                materials_structures = materials_structures[0];
-
+                                materials_structure = materials_structures[0];
+                                resolve(true);
                             }
     
-                    });
+                        });
 
-                    return materials_structures;
+                      });
+
+
+                    return materials_structure;
 
                 },
                 async getMaterials(root) {
@@ -120,14 +127,13 @@ class BOMResolvers {
             
                                 });
 
-                                return material_structure;
                             }
                             materials_list.push(material_complete);
 
                         });
 
                     });
-
+                    
                     return materials_list;
 
                 },
@@ -191,8 +197,6 @@ class BOMResolvers {
 
                                 await knexConnection.raw('SELECT visioncenter_products_attribute.id_products_attribute, visioncenter_products_attribute.fk_characteristics, visioncenter_products_attribute.fk_products_attributes_types, visioncenter_products_attribute.name, visioncenter_products_attribute.description, visioncenter_products_attribute.value, visioncenter_products_attribute.created_at, visioncenter_products_attribute.updated_at FROM visioncenter_products_characteristics, visioncenter_products_types, visioncenter_products_attribute  WHERE visioncenter_products_characteristics.fk_products_lines_charac = '+bom.fk_product_line_piece_productline_bom+' AND visioncenter_products_attribute.fk_characteristics = visioncenter_products_characteristics.id_products_characteristics AND visioncenter_products_types.id_products_types = visioncenter_products_characteristics.fk_products_types_characteristics ORDER BY visioncenter_products_attribute.name ASC').then(function(attr) {
 
-                                    console.log(attr[0]);
-
                                     if(attr[0].length > 0) {
 
                                         aaa = attr[0];
@@ -206,11 +210,8 @@ class BOMResolvers {
                             };
 
                         });
-
     
                     }
-
-                    // console.log(ackComponent.BOM);
 
                     return ackComponent.BOM;
                 },
@@ -310,7 +311,7 @@ class BOMResolvers {
                         knexConnection.raw('INSERT INTO visioncenter_dispatches_logistics(visioncenter_dispatches_logistics.fk_visioncenter_dispatches_dis_log, visioncenter_dispatches_logistics.fk_visioncenter_logistics_dis_logistics, visioncenter_dispatches_logistics.created_at) VALUES('+idNewDispatch+', '+logis.id_visioncenter_logistics+', NOW())').then((queryResult) => {
                             
                             logis.logistics_providers_machines.forEach((machine) => {
-                                knexConnection.raw('INSERT INTO visioncenter_logistics_machines(visioncenter_logistics_machines.fk_visioncenter_logistics_logistics_machines, visioncenter_logistics_machines.reference, visioncenter_logistics_machines.capacity_weight, visioncenter_logistics_machines.capacity_volume, visioncenter_logistics_machines.description) VALUES('+logis.id_visioncenter_logistics+', \''+machine.reference+'\', '+machine.capacity_weight+', '+machine.capacity_volume+', '+machine.description+')').then((s) => {
+                                knexConnection.raw('INSERT INTO visioncenter_logistics_machines(visioncenter_logistics_machines.fk_visioncenter_logistics_logistics_machines, visioncenter_logistics_machines.reference, visioncenter_logistics_machines.capacity_weight, visioncenter_logistics_machines.capacity_volume, visioncenter_logistics_machines.description) VALUES('+logis.id_visioncenter_logistics+', \''+machine.reference+'\', '+machine.capacity_weight+', '+machine.capacity_volume+', \''+machine.description+'\')').then((s) => {
 
                                 });
                             })
@@ -325,7 +326,6 @@ class BOMResolvers {
                     //     });
     
                     // });
-                    
 
 
                     return { id_visioncenter_delivery: idNewDelivery};

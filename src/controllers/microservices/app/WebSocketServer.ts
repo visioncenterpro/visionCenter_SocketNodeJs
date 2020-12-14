@@ -12,6 +12,9 @@ const BOMResolver = require('../resolvers/BOMResolvers.ts');
 const AckComponentsSchema = require('../schemas/AckComponentsSchemas.ts');
 const AckComponentsResolver = require('../resolvers/AckComponentsResolvers.ts');
 const DispatchSchemas = require('../schemas/DispatchSchema.ts');
+const DispatchResolver = require('../resolvers/DispatchResolvers.ts');
+const LabelSchema = require('../schemas/LabelSchemas.ts');
+const LabelResolver = require('../resolvers/LabelResolvers.ts');
 
 const Axios = require("axios");
 const cors = require('cors');
@@ -37,18 +40,29 @@ class WebSocketsServer {
       
       }));
        
-      app.use('/getDispatchProcess', graphqlHTTP.graphqlHTTP({
+      app.use('/XLabels', graphqlHTTP.graphqlHTTP({
         graphiql: true,
         schema: makeExecutableSchema.makeExecutableSchema({
             
-            typeDefs: new DispatchSchemas().getSchema(), 
-            resolvers: new BOMResolver().getResolver()
+            typeDefs: new LabelSchema().getSchema(), 
+            resolvers: new LabelResolver().getResolver()
       
         })      
       
       }));
 
-      app.use('/UpdateAckComponentsMS', graphqlHTTP.graphqlHTTP({
+      app.use('/getDispatchProcess', graphqlHTTP.graphqlHTTP({
+        graphiql: true,
+        schema: makeExecutableSchema.makeExecutableSchema({
+            
+            typeDefs: new DispatchSchemas().getOwnSchema(), 
+            resolvers: new DispatchResolver().getOwnResolver()
+      
+        })      
+      
+      }));
+
+      app.use('/updateAckComponent', graphqlHTTP.graphqlHTTP({
         graphiql: true,
         schema: makeExecutableSchema.makeExecutableSchema({
             

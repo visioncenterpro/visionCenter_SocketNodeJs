@@ -16,7 +16,8 @@ class BOMSchemas {
             getProducts: [Product],
             getDispatch(idDispatch: Int): DispatchItemList,
             getMaterials: [Materials],
-            getMaterialsStructures: [MaterialStructure]
+            getMaterialsStructures(material: MaterialsList): [MaterialStructure]
+
         }
 
         type MaterialStructure {
@@ -45,6 +46,19 @@ class BOMSchemas {
             ripped_resistance_percent: Int,
             printing: String,
             material_structure: [MaterialStructure]
+        }
+
+        input MaterialsList {
+
+            id_visioncenter_materials: ID,
+            name: String,
+            transparency_percent: Int,
+            water_resistance_percent: Int,
+            acid_resistance_percent: Int,
+            temperature_sealed: Int,
+            ripped_resistance_percent: Int,
+            printing: String,
+            material_structure: Int
         }
 
         type newOperatorMachine {
@@ -719,6 +733,18 @@ class BOMSchemas {
             dispatch_remission: [DispatchRemissionItem],
             dispatch_novelties: [DispatchNoveltyItem]
 
+        }
+
+        type StowageItemList {
+            id_visioncenter_stowages: ID,
+            fk_visioncenter_materials_visi_stowages: ID, 
+            name: String,
+            width: Int,
+            height: Int
+            deep: Int, 
+            net_weight: Float, 
+            net_gross: Float,
+            reference: String            
         }
 
         type Delivery {
