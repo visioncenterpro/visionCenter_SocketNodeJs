@@ -630,7 +630,7 @@ class BOMSchemas {
         }
 
         type DispatchRemissionItem {
-
+            
             id_visioncenter_projects: Int,
             project_name: String,
             id_projects_subprojects: Int,
@@ -642,7 +642,10 @@ class BOMSchemas {
             quantity: Int,
             type: String,
             type_client: String,
-            project_name_construction: String
+            project_name_construction: String,
+            kickoff_dispatch_date: String,
+            kickoff_deadLineDate: String,
+            
         }
 
         input NoveltiesTypes {

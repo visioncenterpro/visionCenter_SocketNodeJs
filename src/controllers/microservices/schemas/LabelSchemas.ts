@@ -24,7 +24,8 @@ class LabelSchemas {
                 xLabelModelProject: XLabelModelProject,
                 xLabelModelSubProject: [XLabelModelSubProject],
                 xLabelModelSubProjectProduct: [XLabelModelSubProjectProduct],
-                xLabelModelAckComponent: [XLabelModelAckComponent]
+                xLabelModelAckComponent: [XLabelModelAckComponent],
+                xLabelModelAckComponentBOM: [XLabelModelAckComponentBOM]
             }
 
             type XLabelModelProject {
@@ -72,6 +73,14 @@ class LabelSchemas {
                 finished_left: Int            
             }
 
+            type XLabelModelAckComponentBOM {
+                name: String
+            }
+
+            input XLabelModelAckComponentBOMInput {
+                name: String
+            }
+
             input XLabelInput {
                 type_code: String,
                 xLabelModel: XLabelModelInput
@@ -82,7 +91,8 @@ class LabelSchemas {
                 xLabelModelProject: XLabelModelProjectInput,
                 xLabelModelSubProject: [XLabelModelSubProjectInput],
                 xLabelModelSubProjectProduct: [XLabelModelSubProjectProductInput],
-                xLabelModelAckComponent: [XLabelModelAckComponentInput]
+                xLabelModelAckComponent: [XLabelModelAckComponentInput],
+                xLabelModelAckComponentBOM: [XLabelModelAckComponentBOMInput]
             }
 
             input XLabelModelProjectInput {
