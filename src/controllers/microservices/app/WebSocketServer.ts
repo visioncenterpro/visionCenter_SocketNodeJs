@@ -15,6 +15,8 @@ const DispatchSchemas = require('../schemas/DispatchSchema.ts');
 const DispatchResolver = require('../resolvers/DispatchResolvers.ts');
 const LabelSchema = require('../schemas/LabelSchemas.ts');
 const LabelResolver = require('../resolvers/LabelResolvers.ts');
+const StatisticsSchema = require('../schemas/StatisticsSchemas.ts');
+const StatisticsResolver = require('../resolvers/StatisticsResolvers.ts');
 
 const Axios = require("axios");
 const cors = require('cors');
@@ -61,6 +63,17 @@ class WebSocketsServer {
         })      
       
       }));
+
+      app.use('/getStatisticsProcess', graphqlHTTP.graphqlHTTP({
+        graphiql: true,
+        schema: makeExecutableSchema.makeExecutableSchema({
+            
+            typeDefs: new StatisticsSchema().getSchema(), 
+            resolvers: new StatisticsResolver().getResolver()
+      
+        })      
+      
+      }));      
 
       app.use('/updateAckComponent', graphqlHTTP.graphqlHTTP({
         graphiql: true,
