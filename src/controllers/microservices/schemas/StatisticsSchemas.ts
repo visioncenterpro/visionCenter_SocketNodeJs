@@ -9,7 +9,8 @@ class StatisticsSchemas {
             type Query {
 
                 tester:Boolean,
-                getProjectsNominalStatistics(optionIndex: Int): ProjectsNominalStatistics
+                getProjectsNominalStatistics(optionIndex: Int): ProjectsNominalStatistics,
+                getProjectsList(optionIndex: Int) : [ProjectsList]
 
             }
 
@@ -22,6 +23,15 @@ class StatisticsSchemas {
                 totalSubProjectsProductsWithAckQuantity: Int,
                 totalSubProjectsProductsWithoutAckQuantity: Int,
             }
+
+            type ProjectsList {
+                id_visioncenter_projects: Int,
+                project_name_construction: String,
+                subprojectsQty: Int,
+                subprojectsProductsQty: Int
+            }
+
+
             `;
     }
 }

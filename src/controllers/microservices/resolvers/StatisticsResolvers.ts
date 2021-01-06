@@ -11,9 +11,92 @@ class StatisticsResolvers {
                 tester() {
                     return true;
                 },
+                async getProjectsList(root, {optionIndex}) {
+
+                    let projectsList = [];
+
+                    let knexConnection = await KnexStats({ client: "mysql2", connection: {
+                        host : '127.0.0.1',
+                        user : 'root',
+                        password : 'betabeta',
+                        database : 'visioncenter'
+                      } });
+
+
+                    await knexConnection.raw("SELECT visioncenter_projects.id_visioncenter_projects, visioncenter_projects.project_name_construction FROM visioncenter_projects WHERE visioncenter_projects.id_visioncenter_projects > 33201").then(async (queryResult) => {
+                
+                        if((queryResult[0]).length > 0) {
+
+                            projectsList = (queryResult[0]);
+
+                        }                     
+
+                    });   
+
+                    await new Promise((resolve, reject) => {
+
+                        let flag = 0;
+                        
+                        projectsList.forEach((pro) => {
+
+                            pro.subprojectsQty = 0;
+
+                            knexConnection.raw("SELECT COUNT(*) AS subprojectsQty FROM visioncenter_projects_subprojects WHERE visioncenter_projects_subprojects.fk_projects = "+pro.id_visioncenter_projects).then(async (query2Result) => {
+            
+                                if((query2Result[0]).length > 0) {
+
+                                    // console.log('primero', (query2Result[0])[0].subprojectsQty);
+                                    pro.subprojectsQty = (query2Result[0])[0].subprojectsQty;
+                                }                     
+                                flag++;
+                                console.log(flag, projectsList.length);
+                                if(flag === projectsList.length) {
+                                    resolve(true);
+                                }
+            
+                            });   
+
+                        });
+
+                    });
+
+                    await new Promise((resolve, reject) => {
+
+                        let flag = 0;
+                        
+                        projectsList.forEach((pro) => {
+
+                            pro.subprojectsProductsQty = 0;
+
+                            knexConnection.raw("SELECT SUM(visioncenter_subprojects_products.quantity) AS subprojectsProductsQty FROM visioncenter_projects_subprojects, visioncenter_subprojects_products WHERE visioncenter_projects_subprojects.fk_projects = "+pro.id_visioncenter_projects+" AND visioncenter_subprojects_products.fk_subprojects_subprojectsproducts = visioncenter_projects_subprojects.id_projects_subprojects").then(async (query2Result) => {
+            
+                                if((query2Result[0]).length > 0) {
+
+                                    // console.log('primero', (query2Result[0])[0].subprojectsQty);
+                                    pro.subprojectsProductsQty = (query2Result[0])[0].subprojectsProductsQty;
+                                }                     
+                                flag++;
+                                console.log(flag, projectsList.length);
+                                if(flag === projectsList.length) {
+                                    resolve(true);
+                                }
+            
+                            });   
+
+                        });
+
+                    });
+
+                    console.log('fin');
+
+                    return projectsList;
+
+
+                },
                 async getProjectsNominalStatistics(root, {optionIndex}) {
                     
                     let projectsNominalStatistics = {
+
                         statisticsDate: '2021-01-02',
                         totalProjectsQuantity: 0,
                         totalSubProjectsQuantity: 0,
