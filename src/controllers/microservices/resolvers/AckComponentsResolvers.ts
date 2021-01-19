@@ -236,6 +236,30 @@ class AckComponentsResolvers {
                     });
 
                     return ackComponentPackages;
+                },
+                async searchAckByOrderNum(root, {orderNum}) {
+                    
+                    let searchResult = []
+
+                    let knexConnection = await KnexAck({ client: "mysql2", connection: {
+                        host : '127.0.0.1',
+                        user : 'root',
+                        password : 'betabeta',
+                        database : 'visioncenter'
+                      } });
+
+                    await knexConnection.raw("SELECT visioncenter_projects.id_visioncenter_projects, visioncenter_acknowledgements.id_visioncenter_acknowledgements, visioncenter_acknowledgements.fk_subprojects_products_ack, visioncenter_acknowledgements.reference, id_project_construction FROM visioncenter_acknowledgements, visioncenter_projects WHERE visioncenter_acknowledgements.reference LIKE '%"+orderNum+"%' AND visioncenter_acknowledgements.fk_visioncenter_projects_ack = visioncenter_projects.id_visioncenter_projects AND visioncenter_projects.id_visioncenter_projects = visioncenter_acknowledgements.fk_visioncenter_projects_ack").then(async (queryResult) => {
+                
+                        if((queryResult[0]).length > 0) {
+
+                            searchResult = (queryResult[0]);
+
+                        }                     
+
+                    });
+
+                    return searchResult;
+
                 }
             },
             Mutation: {

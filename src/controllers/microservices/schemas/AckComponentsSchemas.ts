@@ -12,7 +12,18 @@ class AckComponentsSchemas {
                 tester:Boolean,
                 getAckComponentAdditionals(ackComponent: AckComponentInput): [AckComponentAdditional],
                 getAckComponentPackages(ackComponent: AckComponentInput): [AckComponentPackagesList],
-                getAckPackages(idAck: [Int]): [AckComponentPackagesList]
+                getAckPackages(idAck: [Int]): [AckComponentPackagesList],
+                searchAckByOrderNum(orderNum: String) : [AckOrderNum]
+
+            }
+
+            type AckOrderNum {
+
+                id_visioncenter_projects: Int,
+                id_visioncenter_acknowledgements: Int,
+                fk_subprojects_products_ack: Int,
+                reference: String,
+                id_project_construction: String
 
             }
 
