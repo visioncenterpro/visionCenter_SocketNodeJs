@@ -17,6 +17,45 @@ class AckComponentsSchemas {
 
             }
 
+            type AckComponentUpdateQuery {
+
+                approval_user_id: Int,
+                approval_user_facts: String,
+                emit_user_id: Int,
+                emit_user_facts: String,
+                status: String,
+                approval_user_decision: String,
+                created_at: String,
+                fk_ack_component: Int
+
+            }
+
+            type AckComponentUpdateQueryList {
+
+                approval_user_id: Int,
+                approval_user_facts: String,
+                emit_user_id: Int,
+                emit_user_facts: String,
+                status: String,
+                approval_user_decision: String,
+                created_at: String,
+                fk_ack_component: Int
+
+            }
+
+            input AckComponentUpdateQueryInput {
+
+                approval_user_id: Int,
+                approval_user_facts: String,
+                emit_user_id: Int,
+                emit_user_facts: String,
+                status: String,
+                approval_user_decision: String,
+                created_at: String,
+                fk_ack_component: Int
+
+            }
+
             type AckOrderNum {
 
                 id_visioncenter_projects: Int,
@@ -315,6 +354,7 @@ class AckComponentsSchemas {
 
 
             input AckComponentInputPackagesDimension {
+                group_name: String,
                 area: Int
                 caliber: Int
                 deep: Int
@@ -382,6 +422,7 @@ class AckComponentsSchemas {
                 updateAckComponentCharacteristics(ackComponent: AckComponentInput):AckComponent 
                 updateAckComponent(ackComponent: AckComponentInput): AckComponent
                 createAckPackage(newPackage: AckPackageInput): Int
+                createComponentUpdateQuery(newUpdateQuery: AckComponentUpdateQueryInput): AckComponentUpdateQuery
             }
 
         

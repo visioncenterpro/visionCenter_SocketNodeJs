@@ -295,7 +295,7 @@ class AckComponentsResolvers {
 
                                 let product_line = addit.product_line[0];
                                 let attri = addit.product_line[0].characteristics[0].attributes;
-                                knexConnection.raw("INSERT INTO visioncenter_acknowledgement_additionals(fk_ack_ack_styles, fk_ack_components_ack_additional, observation, qty, component_name, component_code, component_description, style_name, height, width, deep, area, caliber, hinge_left, hinge_right, finished_left, finished_right, canto, slot_color, component_code_special, rh, mdf, ruteos) VALUES("+ackComponent.fk_ack_ack_styles+", "+ackComponent.idx_component+", '"+addit.reference+"', "+addit.qty+", '"+addit.name+"', '"+addit.code+"', '"+addit.description+"', '"+ackComponent.style_name+"', "+attri[1].value+", "+attri[2].value+", 0, "+attri[3].value+", "+attri[0].value+", 0, 0, 0, 0, 0.0, '', '', '', '', '')").then((queryResult) => {
+                                knexConnection.raw("INSERT INTO visioncenter_acknowledgement_additionals(fk_ack_ack_styles, fk_ack_components_ack_additional, observation, qty, component_name, component_code, component_description, style_name, height, width, deep, area, caliber, hinge_left, hinge_right, finished_left, finished_right, canto, slot_color, component_code_special, rh, mdf, ruteos, heightF, widthF, weight_net, weight_gross, volume) VALUES("+ackComponent.fk_ack_ack_styles+", "+ackComponent.idx_component+", '"+addit.reference+"', "+addit.qty+", '"+addit.name+"', '"+addit.code+"', '"+addit.description+"', '"+ackComponent.style_name+"', "+attri[1].value+", "+attri[2].value+", 0, "+attri[3].value+", "+attri[0].value+", 0, 0, 0, 0, 0.0, '', '', '', '', '', 0, 0, 0, 0, 0)").then((queryResult) => {
 
                                 });
         
@@ -380,6 +380,23 @@ class AckComponentsResolvers {
 
                     }
                     
+                },
+                async createComponentUpdateQuery(root, {newUpdateQuery}) {
+
+                    let knexConnection = await KnexAck({ client: "mysql2", connection: {
+                        host : '127.0.0.1',
+                        user : 'root',
+                        password : 'betabeta',
+                        database : 'visioncenter'
+                      } });
+
+                    knexConnection.raw("INSERT INTO visioncenter_acknowledgement_updates(visioncenter_acknowledgement_updates.fk_ack_components_ack_components_updates, visioncenter_acknowledgement_updates.fk_acnowledgement_updates_approval_user, visioncenter_acknowledgement_updates.fk_acnowledgement_updates_approval_user_facts, visioncenter_acknowledgement_updates.fk_acnowledgement_updates_emit_user, visioncenter_acknowledgement_updates.fk_acnowledgement_updates_emit_user_facts, visioncenter_acknowledgement_updates.`status`, visioncenter_acknowledgement_updates.approval_user_decision, visioncenter_acknowledgement_updates.created_at) VALUES("+newUpdateQuery.fk_ack_component+", "+newUpdateQuery.approval_user_id+", '"+newUpdateQuery.approval_user_facts+"', "+newUpdateQuery.emit_user_id+" , '"+newUpdateQuery.emit_user_facts+"', 'PEND', '"+newUpdateQuery.approval_user_decision+"', NOW())").then((queryResult) => {
+
+                    });
+
+                    return newUpdateQuery;
+
+
                 },
                 async createAckPackage(root, {newPackage}) {
 

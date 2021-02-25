@@ -17,6 +17,8 @@ const LabelSchema = require('../schemas/LabelSchemas.ts');
 const LabelResolver = require('../resolvers/LabelResolvers.ts');
 const StatisticsSchema = require('../schemas/StatisticsSchemas.ts');
 const StatisticsResolver = require('../resolvers/StatisticsResolvers.ts');
+const ProjectManagerSchema = require('../schemas/ProjectManagerSchemas.ts');
+const ProjectManagerResolver = require('../resolvers/ProjectManagerResolvers.ts');
 
 const Axios = require("axios");
 const cors = require('cors');
@@ -85,6 +87,17 @@ class WebSocketsServer {
         })      
       
       }));
+
+      app.use('/getProjectManagerProcess', graphqlHTTP.graphqlHTTP({
+        graphiql: true,
+        schema: makeExecutableSchema.makeExecutableSchema({
+            
+            typeDefs: new ProjectManagerSchema().getSchema(), 
+            resolvers: new ProjectManagerResolver().getResolver()
+      
+        })      
+      
+      }));      
 
       const server = app.listen(app.get('port'), () => {
       
