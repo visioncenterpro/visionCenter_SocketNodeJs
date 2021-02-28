@@ -23,7 +23,7 @@ class DispatchResolvers extends BOMResolversParent {
             let knexConnection = await KnexDispatch({ client: "mysql2", connection: {
                 host : '127.0.0.1',
                 user : 'root',
-                password : 'betabeta',
+                password : '',
                 database : 'visioncenter'
               } });
 
@@ -103,7 +103,7 @@ class DispatchResolvers extends BOMResolversParent {
             let knexConnection = await KnexDispatch({ client: "mysql2", connection: {
                 host : '127.0.0.1',
                 user : 'root',
-                password : 'betabeta',
+                password : '',
                 database : 'visioncenter'
               } });
 

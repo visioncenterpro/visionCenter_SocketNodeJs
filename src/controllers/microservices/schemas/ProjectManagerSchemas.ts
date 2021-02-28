@@ -9,9 +9,26 @@ class ProjectManagerSchemas {
             type Query {
 
                 tester:Boolean,
-                getSubprojectTimelineEvents(id_subproject: Int): [SubprojectTimelineEvents]
-
+                getSubprojectTimelineEvents(id_subproject: Int): [SubprojectTimelineEvents],
+                getGeneralTimelineEvents: [GeneralTimelineEvents] 
+                
             }
+
+            type GeneralTimelineEvents {
+
+                id_timeline_events: Int, 
+                fk_timeline: Int,
+                registry_date: String,
+                start_date: String,
+                end_date: String,
+                dead_line: String,
+                name: String,
+                description: String,
+                responsible: String,
+                fact: String,
+                subproject_event: [SubprojectUpdateQuery]
+
+            }            
 
             type SubprojectTimelineEvents {
 
@@ -30,6 +47,7 @@ class ProjectManagerSchemas {
 
             type SubprojectUpdateQuery {
 
+                id_subprojects_updates: Int
                 fk_projects_subprojects_subprojects_updates: Int,
                 fk_subproject_updates_approval_user: Int,
                 updates_approval_user_facts: String,

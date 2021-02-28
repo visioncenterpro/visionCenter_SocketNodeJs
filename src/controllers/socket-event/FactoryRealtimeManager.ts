@@ -12,6 +12,8 @@ class FactoryRealtimeManager {
 
             io.on("connection", socket => {
 
+                    // socket.broadcast.emit("management_directors_sincronize", {});
+
                 socket.on("chat message", e => {
 
                   socket.broadcast.emit("chat message", e);
@@ -22,7 +24,15 @@ class FactoryRealtimeManager {
 
                 socket.on("new_signal", e => { 
                     socket.broadcast.emit("new_signal", e);
+                    console.log(e);
                 });
+
+                socket.on("management_directors_sincronize", e => {
+                    
+                    io.emit("management_directors_sincronize", e);
+                    console.log(e);
+                });
+                
     
                 socket.on("move_timeline_date", e => { 
                     socket.broadcast.emit("move_timeline_date", e);

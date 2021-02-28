@@ -20,7 +20,7 @@ class BOMResolvers {
                     await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
                         user : 'root',
-                        password : 'betabeta',
+                        password : '',
                         database : 'visioncenter'
                       } }).raw('SELECT visioncenter_logistics.id_visioncenter_logistics, visioncenter_logistics.fk_logistics_types_visioncenter_logistics, visioncenter_logistics.company_name, visioncenter_logistics.company_nit, visioncenter_logistics.contact_person, visioncenter_logistics.mobile_contact_person FROM visioncenter_logistics ORDER BY visioncenter_logistics.company_name ASC').then((queryResult) => {
                           logisticsList = JSON.parse(JSON.stringify((queryResult[0])));
@@ -40,7 +40,7 @@ class BOMResolvers {
                     let knexConnection = await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
                         user : 'root',
-                        password : 'betabeta',
+                        password : '',
                         database : 'visioncenter'
                       } });
 
@@ -72,7 +72,7 @@ class BOMResolvers {
                     let knexConnection = await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
                         user : 'root',
-                        password : 'betabeta',
+                        password : '',
                         database : 'visioncenter'
                       } });
 
@@ -101,7 +101,7 @@ class BOMResolvers {
                     let knexConnection = await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
                         user : 'root',
-                        password : 'betabeta',
+                        password : '',
                         database : 'visioncenter'
                       } });
 
@@ -145,7 +145,7 @@ class BOMResolvers {
                     let knexConnection = await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
                         user : 'root',
-                        password : 'betabeta',
+                        password : '',
                         database : 'visioncenter'
                       } });
 
@@ -253,7 +253,7 @@ class BOMResolvers {
                     await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
                         user : 'root',
-                        password : 'betabeta',
+                        password : '',
                         database : 'visioncenter'
                       } }).raw("INSERT INTO visioncenter_logistics(visioncenter_logistics.fk_logistics_types_visioncenter_logistics, visioncenter_logistics.company_name, visioncenter_logistics.company_nit, visioncenter_logistics.contact_person, visioncenter_logistics.mobile_contact_person) VALUES("+input.logistic_type.id_logistics_types+", '"+input.company_name+"', '"+input.company_nit+"', '"+input.contact_person+"', '"+input.mobile_contact_person+"')").then((queryResult) => {
                           console.log('OK', queryResult[0]);
@@ -263,7 +263,7 @@ class BOMResolvers {
                         await Knex({ client: "mysql2", connection: {
                             host : '127.0.0.1',
                             user : 'root',
-                            password : 'betabeta',
+                            password : '',
                             database : 'visioncenter'
                         } }).raw('SELECT visioncenter_logistics.id_visioncenter_logistics, visioncenter_logistics.fk_logistics_types_visioncenter_logistics, visioncenter_logistics.company_name, visioncenter_logistics.company_nit, visioncenter_logistics.contact_person, visioncenter_logistics.mobile_contact_person FROM visioncenter_logistics ORDER BY visioncenter_logistics.company_name ASC').then((queryResult) => {
                             logisticsList = JSON.parse(JSON.stringify((queryResult[0])));
@@ -279,7 +279,7 @@ class BOMResolvers {
                     let knexConnection = await Knex({ client: "mysql2", connection: {
                         host : '127.0.0.1',
                         user : 'root',
-                        password : 'betabeta',
+                        password : '',
                         database : 'visioncenter'
                       } });
 
