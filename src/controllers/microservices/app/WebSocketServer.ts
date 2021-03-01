@@ -146,7 +146,12 @@ class WebSocketsServer {
             socket.broadcast.emit("management_directors_sincronize", e);
             console.log(e);
         });
-        
+
+        socket.on("general_timeline_events_refresh", e => {
+            
+          socket.broadcast.emit("general_timeline_events_refresh", e);
+          console.log(e);
+      });
 
         socket.on("move_timeline_date", e => { 
             socket.broadcast.emit("move_timeline_date", e);

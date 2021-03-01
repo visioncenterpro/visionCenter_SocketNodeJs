@@ -30,6 +30,22 @@ class ProjectManagerSchemas {
 
             }            
 
+            input GeneralTimelineEventsInput {
+
+                id_timeline_events: Int, 
+                fk_timeline: Int,
+                registry_date: String,
+                start_date: String,
+                end_date: String,
+                dead_line: String,
+                name: String,
+                description: String,
+                responsible: String,
+                fact: String,
+                subproject_event: [SubprojectUpdateQueryInput]
+
+            }
+
             type SubprojectTimelineEvents {
 
                 id_timeline_events: Int, 
@@ -58,11 +74,12 @@ class ProjectManagerSchemas {
                 created_at: String,
                 finished_at: String
                 fk_vision_timeline_event_subproject_updates: Int                
+                updateQuery: String
 
             }
 
             input SubprojectUpdateQueryInput {
-
+                id_subprojects_updates: Int,
                 fk_projects_subprojects_subprojects_updates: Int,
                 fk_subproject_updates_approval_user: Int,
                 updates_approval_user_facts: String,
@@ -79,7 +96,7 @@ class ProjectManagerSchemas {
             type Mutation {
 
                 createSubprojectUpdateQuery(newUpdateQuery: SubprojectUpdateQueryInput): SubprojectUpdateQuery
-
+                resolveUpdateQuery(resolveUpdateQuery: GeneralTimelineEventsInput): GeneralTimelineEvents
             }
 
             `;
