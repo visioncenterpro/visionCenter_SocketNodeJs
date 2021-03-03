@@ -120,7 +120,7 @@ class ProjectManagerResolvers {
                         database : 'visioncenter'
                       } });
 
-                    await knexConnection.raw("UPDATE visioncenter_subprojects_events SET visioncenter_subprojects_events.status = 'PROCESADO', visioncenter_subprojects_events.approval_user_decision = '', visioncenter_subprojects_events.finished_at = NOW() WHERE visioncenter_subprojects_events.id_subprojects_updates = "+resolveUpdateQuery.subproject_event[0].id_subprojects_updates).then((queryResult) => {
+                    knexConnection.raw("UPDATE visioncenter_subprojects_events SET visioncenter_subprojects_events.status = 'PROCESADO', visioncenter_subprojects_events.approval_user_decision = '', visioncenter_subprojects_events.finished_at = NOW() WHERE visioncenter_subprojects_events.id_subprojects_updates = "+resolveUpdateQuery.subproject_event[0].id_subprojects_updates).then((queryResult) => {
 
                     });
 

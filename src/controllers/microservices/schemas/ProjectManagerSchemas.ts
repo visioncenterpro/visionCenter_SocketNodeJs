@@ -90,6 +90,7 @@ class ProjectManagerSchemas {
                 created_at: String,
                 finished_at: String,
                 fk_vision_timeline_event_subproject_updates: Int                
+                updateQuery: String
 
             }
 
