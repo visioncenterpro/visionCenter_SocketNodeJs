@@ -165,6 +165,10 @@ class WebSocketsServer {
             socket.broadcast.emit("refresh_factory_process_stats", e);
         });
 
+        socket.on("project_planner_directors_event", e => { 
+          socket.broadcast.emit("project_planner_directors_event", e);
+        });
+
         socket.on("refresh_management_process_stats", e => { 
             socket.broadcast.emit("refresh_management_process_stats", e);
         });
