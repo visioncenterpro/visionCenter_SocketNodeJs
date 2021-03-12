@@ -169,6 +169,14 @@ class WebSocketsServer {
           socket.broadcast.emit("project_planner_directors_event", e);
         });
 
+        socket.on("project_planner_directors_sincronize", e => { 
+          socket.broadcast.emit("project_planner_directors_sincronize", e);
+        });
+
+        socket.on("visioncenter_realtime_test", e => { 
+          socket.broadcast.emit("visioncenter_realtime_test", e);
+        });
+
         socket.on("refresh_management_process_stats", e => { 
             socket.broadcast.emit("refresh_management_process_stats", e);
         });
