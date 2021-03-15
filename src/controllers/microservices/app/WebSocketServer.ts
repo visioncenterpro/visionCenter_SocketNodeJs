@@ -173,6 +173,10 @@ class WebSocketsServer {
           socket.broadcast.emit("project_planner_directors_sincronize", e);
         });
 
+        socket.on("admin_timeline_events_refresh", e => { 
+          socket.broadcast.emit("admin_timeline_events_refresh", e);
+        });
+
         socket.on("visioncenter_realtime_test", e => { 
           socket.broadcast.emit("visioncenter_realtime_test", e);
         });
